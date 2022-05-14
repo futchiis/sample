@@ -12,17 +12,28 @@ jobs:
         with:
           java-version: 11
 
-      - name: setup sign key
-        run: echo -n "${{ secrets.keystore }}" | base64 -d > futchiis.keystore
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Checkout manage-keystore repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ steps.generate_token.outputs.token }}
+          repository: "futchiis/manage-keystore"
+          path: "keystore"
+
+      - name: Prepare files for signing
+        run: cp keystore/futchiis.jks app/
 
       - name: Grant rights
         run: chmod +x ./gradlew
 
       - name: Build debug APK with Gradle
-        run: ./gradlew --warning-mode all assemble
-        env:
-          STORE_PASS: ${{secrets.STOREPASS}}
-          KEY_PASS: ${{secrets.KEYPASS}}
+        run: source keystore/env && ./gradlew --warning-mode all assemble
 
       - name: Upload Debug
         uses: actions/upload-artifact@v2
