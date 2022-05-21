@@ -1,3 +1,9 @@
-# Default ignored files
+caches/
+/dictionary/
+/libraries/
 /shelf/
-/workspace.xml
+
+*.iml
+*.xml
+!/gradle.xml
+!/runConfigurations/*.xml

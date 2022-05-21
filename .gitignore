@@ -1,18 +1,27 @@
-*.iml
+#keystore file
 *.jks
+*.keystore
+
+#secret files
 *secret*
-app/release/
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+
+#log / OS file
 .DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.log
+
+#Gradle files
+.gradle/
+build/
+
+# Android Studio generated files
+captures/
+.externalNativeBuild/
+.cxx/
 local.properties
+*.apk
+output.json
+
+# IntelliJ
+*.iml
+
+
